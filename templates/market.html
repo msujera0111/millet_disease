@@ -26,11 +26,11 @@ Supplement Market
     <div class="row">
         <!-- Your item listing code here (similar to the code you provided) -->
         {% for index in range(supplement_name | length) %}
-            {% if index != 4 %}
+            {% if index != 8 %}
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-4" >
                     <div class="p-3 bg-white shadow rounded-lg" style="height: 100%; width: 90%;">
                         <center>
-                            {% if index in [0, 3, 5, 7, 11, 15, 18, 20, 23, 24, 25, 28, 38] %}
+                            {% if index in [4] %}
                             <h5>Fertilizer<b style="color: green;"> (Healthy):</b></h5>
                             {% else %}
                             <h5>Supplements<b style="color: red;"> (Diseased):</b></h5>
