@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from keras.models import load_model
+from io import BytesIO
 
 # Load model and data
 keras_model = load_model("CNN-sorghum_30ep-4-05_2025-05-05.keras")
@@ -56,39 +57,51 @@ def contact():
 def ai_engine_page():
     return render_template('index.html')
 
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg','.JPEG','.PNG','JPG'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
     if request.method == 'POST':
         image = request.files['image']
-        filename = image.filename
-        file_path = os.path.join('static/uploads', filename)
-        image.save(file_path)
-        print(f"Image saved at: {file_path}")
 
-        pred = predict_image(file_path)
-        if isinstance(pred, dict) and 'error' in pred:
-            return jsonify(pred)
+        if not image or not allowed_file(image.filename):
+            return jsonify({"error": "Invalid file format. Only .png, .jpg, .jpeg allowed."})
 
-        title = disease_info['disease_name'][pred]
-        description = disease_info['description'][pred]
-        prevent = disease_info['Possible Steps'][pred]
-        image_url = disease_info['image_url'][pred]
-        supplement_name = supplement_info['supplement name'][pred]
-        supplement_image_url = supplement_info['supplement image'][pred]
-        supplement_buy_link = supplement_info['buy link'][pred]
+        try:
+            image_bytes = BytesIO(image.read())  # In-memory image
 
-        return render_template(
-            'submit.html',
-            title=title,
-            desc=description,
-            prevent=prevent,
-            image_url=image_url,
-            pred=pred,
-            sname=supplement_name,
-            simage=supplement_image_url,
-            buy_link=supplement_buy_link
-        )
+            pred = predict_image(image_bytes)
 
+            if isinstance(pred, dict) and 'error' in pred:
+                return jsonify(pred)
+
+            title = disease_info['disease_name'][pred]
+            description = disease_info['description'][pred]
+            prevent = disease_info['Possible Steps'][pred]
+            image_url = disease_info['image_url'][pred]
+            supplement_name = supplement_info['supplement name'][pred]
+            supplement_image_url = supplement_info['supplement image'][pred]
+            supplement_buy_link = supplement_info['buy link'][pred]
+
+            return render_template(
+                'submit.html',
+                title=title,
+                desc=description,
+                prevent=prevent,
+                image_url=image_url,
+                pred=pred,
+                sname=supplement_name,
+                simage=supplement_image_url,
+                buy_link=supplement_buy_link
+            )
+
+        except Exception as e:
+            return jsonify({"error": str(e)})
+        
 @app.route('/market', methods=['GET', 'POST'])
 def market():
     return render_template(
@@ -100,4 +113,4 @@ def market():
     )
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
