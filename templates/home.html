@@ -1,46 +1,66 @@
 {% extends 'base.html' %}
+
 {% block pagetitle %}
 Millet Disease Prediction
 {% endblock pagetitle %}
+
 {% block body %}
 <style>
-  body{
-    overflow-x: hidden;
+  /* Ensure responsive behavior for small devices */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 24px;
+      padding-top: 20%;
+    }
+
+    .hero-subtext {
+      font-size: 14px;
+    }
+
+    .start-button {
+      font-size: 16px;
+      padding: 10px 30px;
+    }
+
+    .image-grid .col-6 {
+      margin-bottom: 1rem;
+    }
   }
- 
 </style>
 
-
-<div class="row mb-5 text-center text-white laptop">
+<!-- Hero Section -->
+<div class="container text-center text-white my-5">
+  <div class="row">
     <div class="col-lg-10 mx-auto">
-        <h3 class="display-5" style="padding-top: 10%;font-weight: 400;color: black;"><b>MILLET DISEASE DETECTION</b></h3>
-        <p class="lead" style="font-weight: 500;color: black;font-size: 17px;">This Model Will Help To Detect Disease From Millets</p>
+      <h3 class="display-5 hero-title" style="padding-top: 10%; font-weight: 400; color: black;">
+        <b>MILLET DISEASE DETECTION</b>
+      </h3>
+      <p class="lead hero-subtext" style="font-weight: 500; color: black; font-size: 17px;">
+        This Model Will Help To Detect Disease From Millets
+      </p>
     </div>
-</div>
+  </div>
 
-<center class="laptop">
+  <!-- Start Button -->
+  <div class="my-4">
     <a href="/index">
-    <button class = "btn btn-large" style="background-image: linear-gradient(270deg, #ff914d, #ff3131);padding: 1% 6%;border-radius: 100px;"><span style="color: white; font-family: sans-serif; font-size: 20px;">Start  </span></button>
-</a>
-
-</center>
-
-<div class="container mt-5">
-  <div class="row ">
-      <div class="col-3">
-          <div class="rounded p-3  shadow border text-center" style="width: 85%"><img src="../static/uploads/2.png" style="width: 100%;"  alt="" srcset=""></div>
-      </div>
-      <div class="col-3">
-          <div class="rounded p-3 shadow  text-center"  style="width: 85%"><img src="../static/uploads/3.png" style="width: 100%;" alt="" srcset=""></div>
-      </div>
-      <div class="col-3" >
-          <div class="rounded p-3 shadow text-center" style="width: 85%"><img src="../static/uploads/4.png"style="width: 100%;"  alt="" srcset=""></div>
-      </div>
-      <div class="col-3" >
-          <div class="rounded p-3 shadow  text-center" style="width: 85%"><img src="../static/uploads/5.png"style="width: 100%;"  alt="" srcset=""></div>
-      </div>
+      <button class="btn start-button" style="background-image: linear-gradient(270deg, #ff914d, #ff3131); padding: 1% 6%; border-radius: 100px; color: white; font-family: sans-serif; font-size: 20px;">
+        Start
+      </button>
+    </a>
   </div>
 </div>
 
-
+<!-- Image Grid Section -->
+<div class="container mt-5 image-grid">
+  <div class="row g-3 justify-content-center">
+    {% for i in [2, 3, 4, 5] %}
+    <div class="col-6 col-md-3 d-flex justify-content-center">
+      <div class="rounded p-2 shadow text-center border" style="width: 100%; max-width: 200px;">
+        <img src="../static/uploads/{{ i }}.png" alt="Disease {{ i }}" class="img-fluid rounded">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock body %}

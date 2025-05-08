@@ -1,52 +1,50 @@
 {% extends 'base.html' %}
+
 {% block pagetitle %}
 Supplement Market
 {% endblock pagetitle %}
 
 {% block body %}
-
-<div class="container">
-    <div class="row mb-5 text-center text-white">
-        <div class="col-lg-10 mx-auto">
-            <h1 class="display-6" style="padding-top: 2%; font-weight: 400; color: rgb(4, 54, 4);"><b>Supplements</b></h1>
-        </div>
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="display-6 fw-semibold" style="color: #043606;"><b>Supplements</b></h1>
+        <p class="lead text-dark fw-medium">Buy Supplements & Fertilizer at one place</p>
     </div>
-    <div class="row">
-         <div class="col-lg-10 mx-auto">
-            <p class="lead" style="font-weight: 500; color: black;">Buy Supplements & Fertilizer at one place</p>
-        </div>
-        <div class="col-lg-2 mb-4">
-            <select id="filterDropdown" class="form-control">
+
+    <div class="row justify-content-end mb-4">
+        <div class="col-md-3 col-sm-6">
+            <select id="filterDropdown" class="form-select">
                 <option value="all">All</option>
                 <option value="fertilizer">Fertilizer</option>
                 <option value="supplements">Supplements</option>
             </select>
         </div>
     </div>
-    <div class="row">
-        <!-- Your item listing code here (similar to the code you provided) -->
+
+    <div class="row" id="supplement-list">
         {% for index in range(supplement_name | length) %}
             {% if index != 8 %}
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-4" >
-                    <div class="p-3 bg-white shadow rounded-lg" style="height: 100%; width: 90%;">
-                        <center>
+            <div class="col-lg-4 col-md-6 mb-4 supplement-item" data-type="{% if index in [4] %}fertilizer{% else %}supplements{% endif %}">
+                <div class="bg-white shadow rounded-lg p-4 h-100">
+                    <div class="text-center">
+                        <h5>
                             {% if index in [4] %}
-                            <h5>Fertilizer<b style="color: green;"> (Healthy):</b></h5>
+                                Fertilizer <b class="text-success">(Healthy)</b>
                             {% else %}
-                            <h5>Supplements<b style="color: red;"> (Diseased):</b></h5>
+                                Supplements <b class="text-danger">(Diseased)</b>
                             {% endif %}
-                            <br>
-                            <img src={{supplement_image[index]}} width="100" height="150">
-                            <br>
-                            <br>
-                            <h6>For {{disease[index]}}</h6>
-                            <p>{{supplement_name[index]}}</p>
-                            <a target="_blank" href={{buy[index]}}>
-                                <button type="button" class="btn btn-light" style="background-image: linear-gradient(300deg, #ff5c4d, #ff4d4d); color: white; font-weight: 600;">Buy Product</button>
-                            </a>
-                        </center>
+                        </h5>
+                        <img src="{{ supplement_image[index] }}" alt="Product Image" class="my-3" width="100" height="150">
+                        <h6 class="text-muted">For {{ disease[index] }}</h6>
+                        <p>{{ supplement_name[index] }}</p>
+                        <a target="_blank" href="{{ buy[index] }}">
+                            <button class="btn btn-light" style="background-image: linear-gradient(300deg, #ff5c4d, #ff4d4d); color: white; font-weight: 600;">
+                                Buy Product
+                            </button>
+                        </a>
                     </div>
                 </div>
+            </div>
             {% endif %}
         {% endfor %}
     </div>
@@ -54,22 +52,11 @@ Supplement Market
 
 <script>
     document.getElementById("filterDropdown").addEventListener("change", function () {
-        var selectedFilter = this.value;
-        var items = document.querySelectorAll(".col-lg-4");
-
-        items.forEach(function (item) {
-            var itemType = item.querySelector("h5").innerText.includes("Fertilizer") ? "fertilizer" : "supplements";
-
-            if (selectedFilter === "all" || itemType === selectedFilter) {
-                item.style.display = "block";
-            } else {
-                item.style.display = "none";
-            }
+        const selected = this.value;
+        document.querySelectorAll(".supplement-item").forEach(item => {
+            const type = item.getAttribute("data-type");
+            item.style.display = (selected === "all" || selected === type) ? "block" : "none";
         });
     });
 </script>
-
-
-
-
 {% endblock body %}
