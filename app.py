@@ -113,6 +113,5 @@ def market():
     )
 
 if __name__ == '__main__':
-    # Binding Flask to all interfaces and using dynamic port
-    port = int(os.environ.get("PORT", 5000))  # Get the port assigned by Railway
+    port = int(os.environ.get("PORT", 5000))  
     app.run(host='0.0.0.0', port=port, debug=False)
