@@ -28,11 +28,7 @@
       <div class="col-12">
         <div class="p-4 bg-white shadow rounded-lg h-100">
           <h5><b>
-            {% if pred in [3, 5, 7, 11, 15, 18, 20, 23, 24, 25, 28, 38] %}
-              Tips to Grow Healthy Plants :
-            {% else %}
               Brief Description :
-            {% endif %}
           </b></h5>
           <p id="content">{{desc}}</p>
         </div>
@@ -44,10 +40,10 @@
       <div class="col-12">
         <div class="p-4 bg-white shadow rounded-lg h-100">
           <h5><b>
-            {% if pred in [3, 5, 7, 11, 15, 18, 20, 23, 24, 25, 28, 38] %}
+            {% if pred in [4,11, 15, 18, 20, 23, 24, 25, 28, 38] %}
               Benefits :
             {% else %}
-              Prevent This Millet Disease By follow below steps :
+              Prevent This Sorghum Disease By follow below steps :
             {% endif %}
           </b></h5>
           <p>{{prevent}}</p>
@@ -61,7 +57,7 @@
       <div class="col-lg-4 col-md-6 col-sm-8 col-10">
         <div class="p-4 bg-white shadow rounded-lg text-center h-100">
           <h5><b>
-            {% if pred in [3, 5, 7, 11, 15, 18, 20, 23, 24, 25, 28, 38] %}
+            {% if pred in [4, 15, 18, 20, 23, 24, 25, 28, 38] %}
               Fertilizer :
             {% else %}
               Supplements :

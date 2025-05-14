@@ -19,9 +19,12 @@ AI Engine
         <!-- Left Column: Info -->
         <div class="col-12 col-md-6">
             <div class="p-4 bg-white shadow rounded-lg h-100">
-                <h5><b>Why is it necessary to detect disease in Millet?</b></h5>
+                <h5><b>Why is it necessary to detect disease in Sorghum?</b></h5>
                 <p>
-                    Millet diseases affect the growth of their respective species. Research shows gaps in early detection, where symptoms may not appear clearly. Without accurate identification of the disease and its cause, control measures become ineffective and may lead to further crop loss. Proper disease diagnosis is essential to avoid time and resource waste.
+                    Sorghum diseases affect the growth of their respective species. Research shows gaps in early
+                    detection, where symptoms may not appear clearly. Without accurate identification of the disease and
+                    its cause, control measures become ineffective and may lead to further crop loss. Proper disease
+                    diagnosis is essential to avoid time and resource waste.
                 </p>
             </div>
         </div>
@@ -29,12 +32,14 @@ AI Engine
         <!-- Right Column: Upload -->
         <div class="col-12 col-md-6">
             <div class="p-4 bg-white shadow rounded-lg h-100">
-                <h6 class="text-center text-muted mb-4">Upload the millet's leaf image to identify disease</h6>
+                <h6 class="text-center text-muted mb-4">Upload the Sorghum's leaf image to identify disease</h6>
 
                 <form action="/submit" method="POST" enctype="multipart/form-data">
                     <div class="mb-4">
                         <input type="file" id="actual-btn" name="image" hidden />
-                        <label for="actual-btn" class="btn w-100" style="background-image: linear-gradient(300deg, #ff5c4d, #ff4d4d); color: white;">
+                        <!-- <input type="file" id="actual-btn" name="image" accept="image/*" capture="environment" hidden /> -->
+                        <label for="actual-btn" class="btn w-100"
+                            style="background-image: linear-gradient(300deg, #ff5c4d, #ff4d4d); color: white;">
                             Choose File
                         </label>
                         <div class="mt-2 text-center" id="file-chosen" style="color: black;">No file chosen</div>
